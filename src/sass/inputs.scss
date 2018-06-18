@@ -1,0 +1,23 @@
+span.datepicker-display {
+    color: inherit;
+    cursor: pointer;
+}
+input.datepicker {
+    display: none;
+}
+.calendar {
+    width: 100% !important;
+    left: 0% !important;
+    top: 2em;
+    border: 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+}
+
+.calendar .cell:hover {
+    border-color: $blue !important;
+}
+.calendar .cell.selected {
+    color: #fff !important;
+    background-color: $blue !important;
+}
