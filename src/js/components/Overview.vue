@@ -139,7 +139,7 @@ export default {
       let income = !isNaN(this.totalIncome) ? this.totalIncome : 0
       let expense = !isNaN(this.totalExpense) ? this.totalExpense : 0
       let percentage = ((income / (income + expense)) * 100)
-      return Math.round(percentage * 100) / 100
+      return !isNaN(percentage) ? (Math.round(percentage * 100) / 100) : 50
     },
     expensePercentage: function () {
       let income = this.incomePercentage

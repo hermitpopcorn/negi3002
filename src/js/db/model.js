@@ -340,7 +340,7 @@ export default class Model {
     transaction.type = data.type || transaction.type
     transaction.account = data.account || transaction.account
     transaction.target = (typeof data.target !== 'undefined') ? data.target : transaction.target
-    transaction.amount = data.amount || transaction.amount
+    transaction.amount = (typeof data.amount !== 'undefined' && data.amount !== null) ? data.amount : transaction.amount
     transaction.note = (typeof data.note !== 'undefined') ? data.note : transaction.note
     transaction.date = data.date || transaction.date
     transaction.tags = (typeof data.tags !== 'undefined' && data.tags !== null) ? data.tags : transaction.tags

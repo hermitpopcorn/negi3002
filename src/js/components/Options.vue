@@ -6,11 +6,11 @@
         <div class="columns">
           <div class="column">
             <button type="button" class="button is-primary" @click="selectFile()">Import</button>
-            <p>Imports the database from a JSON file previously exported.</p>
+            <p>Imports the database from a .db file previously exported.</p>
           </div>
           <div class="column">
             <button type="button" class="button is-primary" @click="saveBackup()">Export</button>
-            <p>Exports the current database into a plaintext file filled with JSON data.</p>
+            <p>Exports the current database into a .db file filled with JSON data.</p>
           </div>
         </div>
       </div>

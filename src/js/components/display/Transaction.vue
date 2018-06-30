@@ -1,10 +1,6 @@
 <template>
   <div class="transaction" :id="'transaction-' + transaction.id">
     <div class="transaction-head">
-      <div class="actions">
-        <router-link :to="{ path: '/transactions/edit/' + transaction.id }"><i class="fa fa-pencil"></i> edit</router-link> |
-        <a href="javascript:;" @click="deleteTransaction(transaction)"><i class="fa fa-remove"></i> remove</a>
-      </div>
       <span class="account" v-if="transaction.type !== 'x'">{{ transaction.account.name }}</span>
       <span class="account" v-if="transaction.type === 'x'">
         <template v-if="transaction.target">
@@ -14,6 +10,18 @@
           {{ transaction.account.name }} > ???
         </template>
       </span>
+      <div class="actions">
+        <router-link :to="{ path: '/transactions/edit/' + transaction.id }" class="button is-link is-inverted is-small">
+          <span class="icon is-small">
+            <i class="fa fa-pencil"></i>
+          </span>
+        </router-link>
+        <a href="javascript:;" @click="deleteTransaction(transaction)" class="button is-danger is-inverted is-small">
+          <span class="icon is-small">
+            <i class="fa fa-remove"></i>
+          </span>
+        </a>
+      </div>
     </div>
     <div class="transaction-body">
       <div class="transaction-note">

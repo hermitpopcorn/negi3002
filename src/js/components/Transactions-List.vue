@@ -3,7 +3,7 @@
     <section class="section">
       <div class="is-clearfix has-margin-bottom-10">
         <div class="is-pulled-left" v-if="tag">
-          <router-link :to="'/transactions/list'" class="button is-link" exact><i class="fa fa-list"></i> Back to Monthly List</router-link>
+          <router-link :to="'/transactions/list'" class="button is-link has-margin-bottom-5" exact><i class="fa fa-list"></i> Back to Monthly List</router-link>
         </div>
         <div class="is-pulled-right">
           <router-link :to="'/transactions/add'" class="button is-primary" exact><i class="fa fa-pencil-square-o"></i> Add New Transaction</router-link>

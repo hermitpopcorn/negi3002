@@ -3,21 +3,21 @@ $sides: (top, bottom, left, right);
 
 @each $space in $spaceamounts {
 
-    .has-margin-#{$space} {
-      margin: #{$space}px !important;
+  .has-margin-#{$space} {
+    margin: #{$space}px !important;
+  }
+
+  .has-padding-#{$space} {
+    padding: #{$space}px !important;
+  }
+
+  @each $side in $sides {
+    .has-margin-#{$side}-#{$space} {
+      margin-#{$side}: #{$space}px !important;
     }
 
-    .has-padding-#{$space} {
-        padding: #{$space}px !important;
+    .has-padding-#{$side}-#{$space} {
+      padding-#{$side}: #{$space}px !important;
     }
-
-    @each $side in $sides {
-        .has-margin-#{$side}-#{$space} {
-            margin-#{$side}: #{$space}px !important;
-        }
-
-        .has-padding-#{$side}-#{$space} {
-            padding-#{$side}: #{$space}px !important;
-        }
-    }
+  }
 }
