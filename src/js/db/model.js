@@ -44,12 +44,16 @@ export default class Model {
   }
 
   getBalance (account, uptilDate) {
-    var balance = 0
-
-    // if account is unspecified / 'all', it means fetch balance for ALL regular accounts combined
-    if (typeof account === 'undefined' || account === 'all') {
-      var totalBalance = 0
-      var accounts = this.database.getCollection('accounts').find({ 'type': 'regular' })
+    if (typeof account === 'undefined' || account === 'all') { // if account is unspecified / 'all', it means fetch balance for ALL regular accounts combined
+      let totalBalance = 0
+      let accounts = this.database.getCollection('accounts').find({ 'type': 'regular' })
+      for (let account of accounts) {
+        totalBalance += this.getBalance(account, uptilDate)
+      }
+      return totalBalance
+    } else if (account === 'all+noncurrent') { // if account is 'all+noncurrent', count the noncurrent accounts too
+      let totalBalance = 0
+      let accounts = this.database.getCollection('accounts').find({ '$or': [{ 'type': 'regular' }, { 'type': 'noncurrent' }] })
       for (let account of accounts) {
         totalBalance += this.getBalance(account, uptilDate)
       }
@@ -75,7 +79,7 @@ export default class Model {
     }
 
     var transactions
-    balance = account.initialBalance
+    var balance = account.initialBalance
     // Calculate transactions
     var conditions = {
       '$and': [

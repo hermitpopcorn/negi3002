@@ -5,8 +5,19 @@
         <div class="column is-half">
           <div class="box is-white has-blue-bg">
             <small>Total Balance</small>
+            <div class="actions" style="float: right">
+              <a @click="showTotalBalanceWithNoncurrent = !showTotalBalanceWithNoncurrent" class="button is-link is-small" :class="{ 'is-inverted': showTotalBalanceWithNoncurrent }">
+                <span class="icon is-small"><i class="fa fa-anchor"></i></span>
+              </a>
+            </div>
             <br>
-            <b class="h4" v-html="$options.filters.currency(totalBalance)"></b>
+            <b class="h4" v-html="$options.filters.currency(totalBalance)" v-if="!showTotalBalanceWithNoncurrent"></b>
+            <template v-if="showTotalBalanceWithNoncurrent">
+              <b class="h4" v-html="$options.filters.currency(totalBalanceWithNoncurrent)"></b>
+              <span class="is-size-7">
+                (<span v-html="$options.filters.currency(totalBalance)"></span> + <span v-html="$options.filters.currency(totalBalanceWithNoncurrent - totalBalance)"></span>)
+              </span>
+            </template>
           </div>
         </div>
         <div class="column">
@@ -89,6 +100,8 @@ export default {
   data: function () {
     return {
       totalBalance: 'Loading...',
+      totalBalanceWithNoncurrent: 'Loading...',
+      showTotalBalanceWithNoncurrent: false,
       totalIncome: 'Loading...',
       totalExpense: 'Loading...',
       accounts: []
@@ -103,7 +116,8 @@ export default {
   methods: {
     getTotalBalance: function () {
       var self = this
-      self.totalBalance = self.$db.getBalance()
+      self.totalBalance = self.$db.getBalance('all')
+      self.totalBalanceWithNoncurrent = self.$db.getBalance('all+noncurrent')
     },
 
     getAccountsBalance: function () {
