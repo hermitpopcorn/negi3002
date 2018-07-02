@@ -167,6 +167,7 @@ export default {
       if (parseInt(self.year) <= 9999 && parseInt(self.year) >= 1900 && parseInt(self.month) <= 12 && parseInt(self.month) >= 1) {
         self.$set(self.cursor, 'year', self.year)
         self.$set(self.cursor, 'month', self.month)
+        self.dateJumper = self.$moment([self.year, self.month - 1]).toDate()
       }
 
       self.getBalance()
