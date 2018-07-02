@@ -14,7 +14,7 @@ window._ = require('lodash')
 
 var appSettings = {
   'name': 'negi3002',
-  'version': '0.1.0'
+  'version': '0.2.1'
 }
 
 let load = function () {

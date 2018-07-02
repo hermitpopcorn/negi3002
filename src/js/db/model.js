@@ -366,20 +366,20 @@ function whereBetweenDateConditions (year, month, day) {
   } else if (typeof year !== 'undefined' && typeof month === 'undefined') {
     return {
       'date': {
-        '$between': [moment([year]).format('YYYY-01-01 00:00:00'), moment([year]).format('YYYY-12-31 23:59:59')]
+        '$between': [moment([year]).format('YYYY-01-01'), moment([year]).format('YYYY-12-31 23:59:59')]
       }
     }
   } else if (typeof year !== 'undefined' && typeof month !== 'undefined' && typeof day === 'undefined') {
     let daysInMonth = moment([year, month - 1]).daysInMonth()
     return {
       'date': {
-        '$between': [moment([year, month - 1]).format('YYYY-MM-01 00:00:00'), moment([year, month - 1, daysInMonth]).format('YYYY-MM-DD 23:59:59')]
+        '$between': [moment([year, month - 1]).format('YYYY-MM-01'), moment([year, month - 1, daysInMonth]).format('YYYY-MM-DD 23:59:59')]
       }
     }
   } else if (typeof year !== 'undefined' && typeof month !== 'undefined' && typeof day !== 'undefined') {
     return {
       'date': {
-        '$between': [moment([year, month - 1, day]).format('YYYY-MM-DD 00:00:00'), moment([year, month - 1, day]).format('YYYY-MM-DD 23:59:59')]
+        '$between': [moment([year, month - 1, day]).format('YYYY-MM-DD'), moment([year, month - 1, day]).format('YYYY-MM-DD 23:59:59')]
       }
     }
   }
