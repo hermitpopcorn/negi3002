@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "accounting-js": "^1.1.1",
-    "axios": "^0.16.2",
     "bulma": "^0.6.0",
     "cordova-android": "^7.1.0",
     "cordova-plugin-device": "^2.0.2",
@@ -25,7 +24,6 @@
     "lokijs": "^1.5.5",
     "moment": "^2.22.2",
     "vue": "^2.5.2",
-    "vue-axios": "^2.1.1",
     "vue-moment": "^4.0.0-0",
     "vue-router": "^3.0.1",
     "vue-scrollto": "^2.11.0",

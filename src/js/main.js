@@ -2,8 +2,6 @@ import Vue from 'vue'
 import router from '@/router'
 import '%/app.scss'
 import db from '@/db'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
 import filters from '@/filters'
 import VueSweetalert2 from 'vue-sweetalert2'
 import VueScrollTo from 'vue-scrollto'
@@ -26,10 +24,6 @@ let load = function () {
 
   // After database is loaded
   loadDatabase.then(() => {
-    // Axios
-    Vue.use(VueAxios, axios)
-    Vue.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
-
     // Vue Filters
     Vue.filter('currency', filters.currency)
     Vue.filter('date', filters.date)
