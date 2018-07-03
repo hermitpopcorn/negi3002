@@ -26,10 +26,10 @@
     <div class="transaction-body">
       <div class="transaction-note">
         <template v-if="displayDate">
-          <span class="date" v-if="transaction.date">{{ $options.filters.date(transaction.date) }}</span>
+          <span class="date" v-if="transaction.date">{{ $options.filters.date($moment(transaction.date).format('YYYY-MM-DD HH:mm:ss')) }}</span>
         </template>
         <template v-else>
-          <span class="date" v-if="transaction.date.split(' ')[1] !== '00:00:00'">at {{ $options.filters.date(transaction.date).split(' ').slice(-2).join(' ') }}</span>
+          <span class="date" v-if="$moment(transaction.date).format('HH:mm:ss') !== '00:00:00'">at {{ $options.filters.date($moment(transaction.date).format('YYYY-MM-DD HH:mm:ss')).split(' ').slice(-2).join(' ') }}</span>
         </template>
         <p v-if="transaction.note" v-html="$options.filters.breakWhitespaces(transaction.note)"></p>
       </div>

@@ -16,87 +16,89 @@
           <div class="column is-paddingless is-one-quarter has-text-centered" v-on:click="previousMonth">
             <i class="fa fa-angle-left"></i>
           </div>
-          <div class="column is-paddingless has-text-centered" @click="$refs.datepicker.showCalendar()" style="cursor: pointer">
-            <datepicker v-model="dateJumper" ref="datepicker"
-            minimum-view='month' format='MMMM yyyy'
-            input-class="datepicker" @input="changedDatepicker"
-            calendar-class="calendar"></datepicker>
+          <div class="column is-paddingless has-text-centered" @click="showDatepicker = true" style="cursor: pointer">
             <span class="datepicker-display">{{ dateJumper | moment("MMMM YYYY") }}</span>
-        </div>
-        <div class="column is-paddingless is-one-quarter has-text-centered" v-on:click="nextMonth">
-          <i class="fa fa-angle-right"></i>
-        </div>
-      </div>
-    </div>
-
-    <div class="box" v-if="!tag">
-      <div class="transaction b">
-        <div class="transaction-body white">
-          <span>Balance</span>
-          <h1 v-html="$options.filters.currency(currentBalance)"/>
+          </div>
+          <div class="column is-paddingless is-one-quarter has-text-centered" v-on:click="nextMonth">
+            <i class="fa fa-angle-right"></i>
+          </div>
         </div>
       </div>
-    </div>
+      <datepicker v-model="dateJumper" ref="datepicker" v-if="showDatepicker"
+        minimum-view='month' format='MMMM yyyy'
+        input-class="datepicker" @input="changedDatepicker"
+        inline="true"
+        calendar-class="calendar">
+      </datepicker>
 
-    <div class="box-group">
       <div class="box" v-if="!tag">
         <div class="transaction b">
           <div class="transaction-body white">
-            <span>Balance at the end of the period</span>
-            <h1 v-html="$options.filters.currency(periodBalance)"/>
+            <span>Balance</span>
+            <h1 v-html="$options.filters.currency(currentBalance)"/>
           </div>
         </div>
       </div>
-      <div class="box" v-if="tag">
-        <h2 class="has-text-centered">Showing all transactions marked <span class="is-blue">#{{ tag }}</span></h2>
-      </div>
-      <div class="box">
-        <template v-for="(transaction, index) in transactions">
-          <div v-bind:key="'separator-' + index" class="transaction-separator" v-if="index == 0 || transactions[index - 1].date.split(' ')[0] !== transaction.date.split(' ')[0]">{{ transaction.date.split(' ')[0] | date }}</div>
-          <transaction v-bind:key="'transaction-' + transaction.id" :class="transaction.type" :transaction="transaction" @updated="onTransactionUpdated()"></transaction>
-        </template>
-        <template v-if="transactions.length < 1">
-          <div class="has-text-centered">
-            <template v-if="!tag">
-              No transactions recorded in this time frame.
-            </template>
-            <template v-else>
-              No transactions found.
-            </template>
-          </div>
-        </template>
-      </div>
-      <div class="box" v-if="!tag">
-        <div class="transaction b">
-          <div class="transaction-body white">
-            <span>Starting balance</span>
-            <h1 v-html="$options.filters.currency(initialBalance)"/>
-          </div>
-        </div>
-      </div>
-      <div class="box" v-if="tag">
-        <div class="columns">
-          <div class="column is-half">
-            <div class="transaction i">
-              <div class="transaction-body white">
-                <span>Total tagged income</span>
-                <h1 v-html="$options.filters.currency(totalIncome)"/>
-              </div>
-            </div>
-          </div>
-          <div class="column is-half">
-            <div class="transaction e">
-              <div class="transaction-body white">
-                <span>Total tagged expense</span>
-                <h1 v-html="$options.filters.currency(totalExpense)"/>
-              </div>
+
+      <div class="box-group">
+        <div class="box" v-if="!tag">
+          <div class="transaction b">
+            <div class="transaction-body white">
+              <span>Balance at the end of the period</span>
+              <h1 v-html="$options.filters.currency(periodBalance)"/>
             </div>
           </div>
         </div>
+        <div class="box" v-if="tag">
+          <h2 class="has-text-centered">Showing all transactions marked <span class="is-blue">#{{ tag }}</span></h2>
+        </div>
+        <div class="box">
+          <template v-for="(transaction, index) in transactions">
+            <div v-bind:key="'separator-' + index" class="transaction-separator" v-if="index == 0 || transactions[index - 1].date.split(' ')[0] !== transaction.date.split(' ')[0]">{{ transaction.date.split(' ')[0] | date }}</div>
+            <transaction v-bind:key="'transaction-' + transaction.id" :class="transaction.type" :transaction="transaction" @updated="onTransactionUpdated()"></transaction>
+          </template>
+          <template v-if="transactions.length < 1">
+            <div class="has-text-centered">
+              <template v-if="!tag">
+                No transactions recorded in this time frame.
+              </template>
+              <template v-else>
+                No transactions found.
+              </template>
+            </div>
+          </template>
+        </div>
+        <div class="box" v-if="!tag">
+          <div class="transaction b">
+            <div class="transaction-body white">
+              <span>Starting balance</span>
+              <h1 v-html="$options.filters.currency(initialBalance)"/>
+            </div>
+          </div>
+        </div>
+        <div class="box" v-if="tag">
+          <div class="columns">
+            <div class="column is-half">
+              <div class="transaction i">
+                <div class="transaction-body white">
+                  <span>Total tagged income</span>
+                  <h1 v-html="$options.filters.currency(totalIncome)"/>
+                </div>
+              </div>
+            </div>
+            <div class="column is-half">
+              <div class="transaction e">
+                <div class="transaction-body white">
+                  <span>Total tagged expense</span>
+                  <h1 v-html="$options.filters.currency(totalExpense)"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
-</div>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -140,6 +142,7 @@ export default {
       currentBalance: 0,
       cursor: { },
       dateJumper: new Date(),
+      showDatepicker: false,
       totalIncome: 0,
       totalExpense: 0
     }
@@ -320,6 +323,8 @@ export default {
       let prev = self.$moment(date)
       prev.subtract(1, 'month')
       prev.endOf('month')
+
+      self.showDatepicker = false
 
       // Get the starting balance by getting the balance up to the previous month
       self.getPeriodBalance(prev.year(), prev.month() + 1, prev.date())
