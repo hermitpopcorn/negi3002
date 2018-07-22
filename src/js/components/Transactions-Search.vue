@@ -217,7 +217,7 @@ export default {
   },
   methods: {
     search: function (e) {
-      e.preventDefault()
+      if (e) { e.preventDefault() }
       var self = this
 
       // set "null" strings to actual nulls
@@ -240,6 +240,11 @@ export default {
       self.transactions = self.$db.getTransactions(params)
       self.calculateIncomeAndExpenseTotals()
     },
+
+    onTransactionUpdated: function () {
+      this.search()
+    },
+
     calculateIncomeAndExpenseTotals: function () {
       var self = this
 
