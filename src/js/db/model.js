@@ -357,6 +357,78 @@ export default class Model {
     }
     return this.database.getCollection('transactions').remove(transaction)
   }
+
+  initializeBudgets () {
+    var budgets = this.database.addCollection('budgets')
+    var data = require('@/db/defaultData.json')
+    for (let budget of data.budgets) {
+      budgets.insert(budget)
+    }
+    var optionsDoc = this.database.getCollection('options').findOne()
+    optionsDoc.autoIncrements.budgets = data.autoIncrements.budgets
+    this.database.getCollection('options').update(optionsDoc)
+  }
+
+  getBudgetProfiles () {
+    let budgets = this.database.getCollection('budgets')
+    if (!budgets) {
+      this.initializeBudgets()
+      return []
+    }
+    return _.cloneDeep(budgets.chain().find().simplesort('order', false).data())
+  }
+
+  getBudgetProfile (id) {
+    let budgets = this.database.getCollection('budgets')
+    if (!budgets) {
+      this.initializeBudgets()
+      return null
+    }
+    return _.clone(budgets.findOne({ 'id': id }))
+  }
+
+  insertBudgetProfile (data) {
+    var budgets = this.database.getCollection('budgets')
+    if (!budgets) {
+      this.initializeBudgets()
+    }
+
+    var id = this.getAutoIncrement('budgets')
+
+    var insert = _.clone(budgets.insert({
+      id: id,
+      name: data.name,
+      type: data.type,
+      items: data.items
+    }))
+    if (insert) {
+      this.stepAutoIncrement('budgets')
+    }
+    return insert
+  }
+
+  updateBudgetProfile (budget, data) {
+    var budgets = this.database.getCollection('budgets')
+    if (!budgets) {
+      this.initializeBudgets()
+      return null
+    }
+
+    if (typeof budget === 'number') {
+      budget = this.getBudgetProfile(budget)
+    }
+
+    budget.name = data.name || budget.name
+    budget.items = data.items || budget.items
+    return _.clone(budgets.update(budget))
+  }
+
+  deleteBudgetProfile (budget) {
+    if (typeof budget === 'number') {
+      budget = this.getBudgetProfile(budget)
+    }
+    return this.database.getCollection('budgets').remove(budget)
+  }
 }
 
 // Helpers

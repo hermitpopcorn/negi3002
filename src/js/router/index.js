@@ -6,6 +6,7 @@ import TransactionsList from '@/components/Transactions-List.vue'
 import TransactionsForm from '@/components/Transactions-Form.vue'
 import TransactionsSearch from '@/components/Transactions-Search.vue'
 import Accounts from '@/components/Accounts.vue'
+import Budget from '@/components/Budget.vue'
 import Statistics from '@/components/Statistics.vue'
 import Options from '@/components/Options.vue'
 import ErrorNotFound from '@/components/Error-NotFound.vue'
@@ -84,6 +85,11 @@ export default new VueRouter({
           component: TransactionsSearch
         }
       ]
+    },
+    {
+      path: '/budget',
+      name: 'budget',
+      component: Budget
     },
     {
       path: '/accounts',

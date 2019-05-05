@@ -20,6 +20,7 @@
         <li :class="{ 'is-active': $route.name.split('.')[0] == 'overview' }"><router-link :to="'/overview'">Overview</router-link></li>
         <li :class="{ 'is-active': $route.name.split('.')[0] == 'transactions' }"><router-link :to="'/transactions'">Transactions</router-link></li>
         <li :class="{ 'is-active': $route.name.split('.')[0] == 'accounts' }"><router-link :to="'/accounts'">Accounts</router-link></li>
+        <li :class="{ 'is-active': $route.name.split('.')[0] == 'budget' }"><router-link :to="'/budget'">Budget Profiles</router-link></li>
         <li :class="{ 'is-active': $route.name.split('.')[0] == 'statistics' }"><router-link :to="'/stats'">Statistics</router-link></li>
         <li :class="{ 'is-active': $route.name.split('.')[0] == 'options' }"><router-link :to="'/options'">Options</router-link></li>
       </ul>

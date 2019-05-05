@@ -199,21 +199,23 @@ export default {
         cancelButtonColor: '#1985ac',
         confirmButtonText: 'Delete'
       }).then(function (result) {
-        let deleted = self.$db.deleteAccount(account)
-        if (deleted) {
-          self.$swal({
-            title: 'Deleted',
-            text: 'Account has been deleted.',
-            type: 'success'
-          })
-          self.getAccounts()
-          self.hideForm()
-        } else {
-          self.$swal({
-            title: 'Failure',
-            text: 'Account was not deleted.',
-            type: 'error'
-          })
+        if (result.value === true) {
+          let deleted = self.$db.deleteAccount(account)
+          if (deleted) {
+            self.$swal({
+              title: 'Deleted',
+              text: 'Account has been deleted.',
+              type: 'success'
+            })
+            self.getAccounts()
+            self.hideForm()
+          } else {
+            self.$swal({
+              title: 'Failure',
+              text: 'Account was not deleted.',
+              type: 'error'
+            })
+          }
         }
       })
     },

@@ -27,7 +27,7 @@
       <datepicker v-model="dateJumper" ref="datepicker" v-if="showDatepicker"
         minimum-view='month' format='MMMM yyyy'
         input-class="datepicker" @input="changedDatepicker"
-        inline="true"
+        :inline="true"
         calendar-class="calendar">
       </datepicker>
 
@@ -205,7 +205,7 @@ export default {
       self.getTransactions({ 'year': year, 'month': month })
       self.calculatePeriodBalance()
       if (typeof self.transactionID !== 'undefined') {
-        setTimeout(function () { self.$scrollTo('#transaction-' + self.transactionID, 1000, { 'offset': -25 }) }, 1000)
+        setTimeout(() => { self.$scrollTo('#transaction-' + self.transactionID, 1000, { 'offset': -25 }) }, 1000)
       }
     },
 

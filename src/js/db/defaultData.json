@@ -17,8 +17,11 @@
   ],
   "transactions": [
   ],
+  "budgets": [
+  ],
   "autoIncrements": {
     "accounts": 3,
-    "transactions": 1
+    "transactions": 1,
+    "budgets": 1
   }
 }
